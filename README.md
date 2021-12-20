@@ -27,3 +27,5 @@
 - external services tests like api endpoint service functions
 
 - integration tests - would use something cucumberjs
+
+- hooks on commit to trigger the tests (husky)
