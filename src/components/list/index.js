@@ -26,7 +26,12 @@ const List = props => {
     expandUser(id, expanded, setExpanded);
   };
   const followUserFunc = id => {
-    setFollowed([...followed, id]);
+    const isFollowed = followed.filter(f => f === id).length > 0;
+    if (isFollowed) {
+      setFollowed([...followed.filter(f => f !== id)]);
+    } else {
+      setFollowed([...followed, id]);
+    }
     expandUser(id, expanded, setExpanded);
   };
   const blockUser = props.blockUser || blockUserFunc;
@@ -74,7 +79,11 @@ const List = props => {
                 <Icon name="user" type="font-awesome" size={15} color="white" />
               }
               iconLeft
-              title=" Follow"
+              title={
+                followed.filter(f => f === l.account_id).length > 0
+                  ? ' Unfollow'
+                  : ' Follow'
+              }
               onPress={() => followUser(l.account_id)}
               ViewComponent={LinearGradient}
               linearGradientProps={{

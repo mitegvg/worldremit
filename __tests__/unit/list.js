@@ -34,6 +34,21 @@ describe('List tests', () => {
     );
     wrapper.root.findByProps({nativeId: 'followUser-111'}).props.onPress();
   });
+  test('unfollow user should trigger the follow user function with user id', done => {
+    let timesCalled = 0;
+    const followUser = id => {
+      expect(id).toBe(111);
+      timesCalled++;
+      if (timesCalled === 2) {
+        done();
+      }
+    };
+    wrapper = renderer.create(
+      <List followUser={followUser} defaultData={defaultData} />,
+    );
+    wrapper.root.findByProps({nativeId: 'followUser-111'}).props.onPress();
+    wrapper.root.findByProps({nativeId: 'followUser-111'}).props.onPress();
+  });
   test('block user should trigger the block user function with user id', done => {
     const blockUser = id => {
       expect(id).toBe(111);
